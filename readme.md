@@ -2,6 +2,16 @@
 
 Aplicação web para gerenciamento de agendamentos de um pet shop. O projeto exibe os atendimentos organizados por período do dia e permite cadastrar ou remover agendamentos de forma simples.
 
+## Demo
+
+Acesse a versão online:
+
+```text
+https://luanagimns.github.io/agenda-pet/
+```
+
+Na demo do GitHub Pages, os agendamentos são salvos no navegador com `localStorage`. Ao rodar localmente, a aplicação usa a API Node.js com Express.
+
 ## Funcionalidades
 
 - Listagem de agendamentos por data.

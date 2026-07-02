@@ -10,6 +10,56 @@ const nightList = document.getElementById("nightList");
 const phoneInput = document.getElementById("phone");
 
 const selectedDate = "2024-01-10";
+const storageKey = "mundo-pet-appointments";
+const usesApi = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+const defaultAppointments = [
+  {
+    id: 1,
+    time: "09:00",
+    pet: "Thor",
+    tutor: "Fernanda Costa",
+    phone: "(16) 99999-9999",
+    service: "Vacinação",
+    date: "2024-01-10"
+  },
+  {
+    id: 2,
+    time: "13:00",
+    pet: "Mel",
+    tutor: "João Souza",
+    phone: "(16) 98888-8888",
+    service: "Corte de Unhas",
+    date: "2024-01-10"
+  },
+  {
+    id: 3,
+    time: "14:00",
+    pet: "Bella",
+    tutor: "Pedro Martins",
+    phone: "(16) 97777-7777",
+    service: "Aplicação de Anti-pulgas",
+    date: "2024-01-10"
+  },
+  {
+    id: 4,
+    time: "15:00",
+    pet: "Simba",
+    tutor: "Juliana Rocha",
+    phone: "(16) 96666-6666",
+    service: "Tosa Higiênica",
+    date: "2024-01-10"
+  },
+  {
+    id: 5,
+    time: "20:00",
+    pet: "Max",
+    tutor: "Camila Santos",
+    phone: "(16) 95555-5555",
+    service: "Limpeza de Dentes",
+    date: "2024-01-10"
+  }
+];
 
 openModalButton.addEventListener("click", openModal);
 closeModalButton.addEventListener("click", closeModal);
@@ -37,10 +87,36 @@ function closeModal() {
 }
 
 async function loadAppointments() {
-  const response = await fetch(`/api/appointments?date=${selectedDate}`);
-  const appointments = await response.json();
+  const appointments = usesApi
+    ? await fetchApiAppointments()
+    : getStoredAppointments();
 
-  renderAppointments(appointments);
+  renderAppointments(appointments.filter(appointment => appointment.date === selectedDate));
+}
+
+async function fetchApiAppointments() {
+  const response = await fetch(`/api/appointments?date=${selectedDate}`);
+
+  if (!response.ok) {
+    return defaultAppointments;
+  }
+
+  return response.json();
+}
+
+function getStoredAppointments() {
+  const storedAppointments = localStorage.getItem(storageKey);
+
+  if (!storedAppointments) {
+    localStorage.setItem(storageKey, JSON.stringify(defaultAppointments));
+    return defaultAppointments;
+  }
+
+  return JSON.parse(storedAppointments);
+}
+
+function saveStoredAppointments(appointments) {
+  localStorage.setItem(storageKey, JSON.stringify(appointments));
 }
 
 function renderAppointments(appointments) {
@@ -136,13 +212,22 @@ async function handleSubmit(event) {
     return;
   }
 
-  await fetch("/api/appointments", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(appointment)
-  });
+  if (usesApi) {
+    await fetch("/api/appointments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(appointment)
+    });
+  } else {
+    const appointments = getStoredAppointments();
+    appointments.push({
+      ...appointment,
+      id: Date.now()
+    });
+    saveStoredAppointments(appointments);
+  }
 
   appointmentForm.reset();
 
@@ -154,9 +239,16 @@ async function handleSubmit(event) {
 }
 
 async function removeAppointment(id) {
-  await fetch(`/api/appointments/${id}`, {
-    method: "DELETE"
-  });
+  if (usesApi) {
+    await fetch(`/api/appointments/${id}`, {
+      method: "DELETE"
+    });
+  } else {
+    const appointments = getStoredAppointments();
+    saveStoredAppointments(
+      appointments.filter(appointment => appointment.id !== id)
+    );
+  }
 
   loadAppointments();
 }
