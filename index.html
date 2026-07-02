@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundo Pet - Agendamento</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="brand">
+      <img class="brand-icon" src="assets/logo.svg" alt="">
+      <span class="brand-name">MUNDO PET</span>
+    </header>
+
+    <main class="page">
+      <section class="agenda">
+        <div class="agenda-header">
+          <div>
+            <h1>Sua agenda</h1>
+            <p>Aqui você pode ver todos os clientes e serviços agendados para hoje.</p>
+          </div>
+
+          <button class="date-button" type="button">
+            <span class="calendar-icon" aria-hidden="true"></span>
+            10/01/2024
+            <span class="chevron" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div class="schedule-list">
+          <section class="schedule-card">
+            <header class="schedule-card-header">
+              <div>
+                <img class="period-icon" src="assets/morning.svg" alt="">
+                <strong>Manhã</strong>
+              </div>
+              <strong>09h-12h</strong>
+            </header>
+            <div class="appointments-list" id="morningList"></div>
+          </section>
+
+          <section class="schedule-card">
+            <header class="schedule-card-header">
+              <div>
+                <img class="period-icon" src="assets/afternoon.svg" alt="">
+                <strong>Tarde</strong>
+              </div>
+              <strong>13h-18h</strong>
+            </header>
+            <div class="appointments-list" id="afternoonList"></div>
+          </section>
+
+          <section class="schedule-card">
+            <header class="schedule-card-header">
+              <div>
+                <img class="period-icon" src="assets/night.svg" alt="">
+                <strong>Noite</strong>
+              </div>
+              <strong>19h-21h</strong>
+            </header>
+            <div class="appointments-list" id="nightList"></div>
+          </section>
+        </div>
+      </section>
+
+      <button class="new-appointment-button" id="openModalButton" type="button">
+        Novo agendamento
+      </button>
+    </main>
+
+    <div class="modal-overlay hidden" id="modalOverlay">
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="close-modal-button" id="closeModalButton" type="button" aria-label="Fechar">
+          ×
+        </button>
+
+        <h2 id="modalTitle">Agende um atendimento</h2>
+        <p class="modal-description">Preencha os dados do cliente para realizar o agendamento:</p>
+
+        <form class="form" id="appointmentForm">
+          <div class="form-group">
+            <label for="tutor">Nome do tutor</label>
+            <div class="input-wrapper">
+              <img class="field-icon user-icon" src="assets/user.svg" alt="">
+              <input id="tutor" name="tutor" type="text" placeholder="Helena Souza" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pet">Nome do pet</label>
+            <div class="input-wrapper">
+              <img class="field-icon pet-icon" src="assets/pet.svg" alt="">
+              <input id="pet" name="pet" type="text" placeholder="Cheddar" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Telefone</label>
+            <div class="input-wrapper">
+              <img class="field-icon phone-icon" src="assets/phone.svg" alt="">
+              <input id="phone" name="phone" type="tel" placeholder="(00) 0 0000-0000" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="service">Descrição do serviço</label>
+            <textarea id="service" name="service" placeholder="Banho e tosa" required></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="date">Data</label>
+              <div class="input-wrapper select-wrapper date-wrapper">
+                <span class="field-icon date-icon" aria-hidden="true"></span>
+                <input id="date" name="date" type="date" value="2024-01-10" required>
+                <span class="select-chevron" aria-hidden="true"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="time">Hora</label>
+              <div class="input-wrapper select-wrapper time-wrapper">
+                <span class="field-icon time-icon" aria-hidden="true">
+                  <img src="assets/time.svg" alt="">
+                </span>
+                <input id="time" name="time" type="time" value="12:00" required>
+                <span class="select-chevron" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-footer">
+            <button class="submit-button" type="submit">AGENDAR</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

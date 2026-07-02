@@ -1,0 +1,14 @@
+{
+  "name": "mundo-pet-agendamento",
+  "version": "1.0.0",
+  "description": "Sistema de agendamento para petshop",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
