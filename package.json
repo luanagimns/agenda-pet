@@ -4,6 +4,7 @@
   "description": "Sistema de agendamento para petshop",
   "main": "server.js",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js"
