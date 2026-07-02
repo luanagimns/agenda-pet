@@ -78,6 +78,10 @@ phoneInput.addEventListener("input", event => {
 
 loadAppointments();
 
+if (window.location.hash === "#new") {
+  openModal();
+}
+
 function openModal() {
   modalOverlay.classList.remove("hidden");
 }

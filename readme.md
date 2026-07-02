@@ -12,6 +12,16 @@ https://luanagimns.github.io/agenda-pet/
 
 Na demo do GitHub Pages, os agendamentos são salvos no navegador com `localStorage`. Ao rodar localmente, a aplicação usa a API Node.js com Express.
 
+## Screenshots
+
+### Agenda
+
+![Tela da agenda do Mundo Pet](assets/screenshots/agenda.png)
+
+### Novo agendamento
+
+![Modal de novo agendamento do Mundo Pet](assets/screenshots/modal.png)
+
 ## Funcionalidades
 
 - Listagem de agendamentos por data.
